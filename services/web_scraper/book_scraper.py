@@ -65,13 +65,15 @@ def scrape_book(url: str) -> Book:
         rating=rating,
         full=availability
     )
+    
 # ============================================================
 #                      RANDOM BOOKS
 # ============================================================
 def get_random_books(limit: int = 10) -> List[Book]:
     all_urls = get_all_book_urls(limit=limit * 2)
     selected_urls = random.sample(all_urls, min(limit, len(all_urls)))
-    return [Book(**scrape_book(url)) for url in selected_urls]
+    return [scrape_book(url) for url in selected_urls]
+
 
 # ============================================================
 #                       TOP BOOKS
@@ -80,7 +82,6 @@ def get_top_popular_books(limit: int = 10) -> List[Book]:
     all_urls = get_all_book_urls(limit=50)
     books = [scrape_book(url) for url in all_urls]
 
-    # Solo libros de 5 estrellas
     books_5stars = [b for b in books if RATING_MAP.get(b.rating, 0) == 5]
 
     return books_5stars[:limit]
