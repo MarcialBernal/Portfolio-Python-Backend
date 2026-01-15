@@ -1,10 +1,8 @@
 from pydantic import BaseModel
-from typing import Optional
 
-class ScrapedItem(BaseModel):
-    date: str
+class Book(BaseModel):
     title: str
-    price: Optional[str]
-    image_url: Optional[str]
-    item_url: str
-    full: bool
+    price: str
+    rating: str
+    image_url: str
+    book_url: str
