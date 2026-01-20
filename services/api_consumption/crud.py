@@ -5,6 +5,6 @@ from services.api_consumption.schemas import GenresResponse
 # -----------------------------
 #            GENRES
 # -----------------------------
-def fetch_genres() -> GenresResponse:
+def fetch_genres() -> dict:
     data = get_genres()
-    return GenresResponse.model_validate(data)
+    return data
