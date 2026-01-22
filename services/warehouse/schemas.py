@@ -58,5 +58,6 @@ class ItemUpdate(BaseModel):
 class Item(ItemBase):
     id: int
     created_at: datetime
-    class Config:
-        orm_mode = True
+    model_config = {
+    "from_attributes": True
+}
