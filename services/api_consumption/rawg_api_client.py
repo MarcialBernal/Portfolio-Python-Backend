@@ -16,6 +16,7 @@ def get_genres():
         data = response.json()
         results.extend(data.get("results", []))
         url = data.get("next")
-        params = None
+        
+        params = {"key": API_KEY} if url else None
 
     return {"count": len(results), "next": None, "previous": None, "results": results}
