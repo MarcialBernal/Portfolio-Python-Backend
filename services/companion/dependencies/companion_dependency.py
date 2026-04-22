@@ -1,4 +1,4 @@
-from companion.services.companion_service import Companion
+from companion.use_cases.companion_service import Companion
 
 companion_instance = Companion()
 

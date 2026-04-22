@@ -5,6 +5,7 @@ aqui se va a inyectar solo la dependencia
 para la conexion a la DB.
 '''
 
+'''
 from sqlmodel import Session
 from backend.services.companion.models.user_models import User
 #from backend.services.companion.databases.db import engine  ###Import para ejemplo de uso, no es necesario para la clase en sí.
@@ -17,6 +18,7 @@ class UserRepository:
         session.commit()
         session.refresh(user)
         return user
+'''
 
 
 ''' 🔽 EJEMPLO DE USO CODIGO PARA CREAR USSUARIO DE EJEMPLO
