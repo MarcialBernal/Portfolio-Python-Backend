@@ -1,33 +1,30 @@
-'''
-Este archivo conecta a la base de datos,
-lee modelos para basarse como un mapa,
-aqui se va a inyectar solo la dependencia
-para la conexion a la DB.
-'''
+from sqlmodel import Session, select
 
-'''
-from sqlmodel import Session
-from backend.services.companion.models.user_models import User
-#from backend.services.companion.databases.db import engine  ###Import para ejemplo de uso, no es necesario para la clase en sí.
+from services.companion.models.user_model import User
 
 
 class UserRepository:
 
-    def create_user(self, session: Session, user: User) -> User:
-        session.add(user)
-        session.commit()
-        session.refresh(user)
+    def __init__(self, session: Session):
+        self.session = session
+
+    def create_user(self, user: User):
+        self.session.add(user)
+        self.session.commit()
+        self.session.refresh(user)
         return user
-'''
 
+    def get_user_by_email(self, email: str):
+        statement = select(User).where(User.email == email)
+        return self.session.exec(statement).first()
 
-''' 🔽 EJEMPLO DE USO CODIGO PARA CREAR USSUARIO DE EJEMPLO
-if __name__ == "__main__":
-    repo = UserRepository()
+    def get_user_by_username(self, username: str):
+        statement = select(User).where(User.username == username)
+        return self.session.exec(statement).first()
 
-    with Session(engine) as session:
-        new_user = User(username="marcial", password="1234")
-
-        created_user = repo.create_user(session, new_user)
-
-        print("Usuario creado:", created_user)'''
+    def get_user_by_id(self, user_id: int):
+        return self.session.get(User, user_id)
+    
+    def get_all_users(self, session: Session):
+        statement = select(User)
+        return session.exec(statement).all()
