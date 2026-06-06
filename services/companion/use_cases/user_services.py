@@ -1,8 +1,8 @@
-from sqlmodel import Session
-
-from services.companion.repositories.user_repository import UserRepository
+from services.companion.dependencies.repository_dependency import get_user_repository
 
 
-def get_users(session: Session):
-    repository = UserRepository(session)
-    return repository.get_all_users(session)
+class UserService:
+
+    def get_all_users(self, session):
+        repository = get_user_repository(session)
+        return repository.get_all()

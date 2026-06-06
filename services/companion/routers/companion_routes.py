@@ -12,10 +12,23 @@ from typing import Annotated
 from sqlmodel import Session
 from services.companion.schemas.user_schemas import UserResponse
 from services.companion.database.session import get_session
-from services.companion.use_cases import user_services as user_service
+from services.companion.dependencies.service_dependency import get_user_service
 
 router = APIRouter()
 
 @router.get("/users", response_model=list[UserResponse])
-def get_users(session: Annotated[Session, Depends(get_session)]):
-    return user_service.get_users(session)
+def get_users(session: Session = Depends(get_session), service = Depends(get_user_service)):
+    return service.get_all_users(session)
+
+'''
+@router.get("/users", response_model=list[UserResponse])
+def get_users(
+    session: Session = Depends(get_session)
+):
+    repository = UserRepository(session)
+    service = UserService(repository)
+
+    return service.get_all_users()
+    
+En este caso, se inyectan todas las dependencias en la ruta. 
+'''
