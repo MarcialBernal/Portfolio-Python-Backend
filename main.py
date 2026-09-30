@@ -4,7 +4,7 @@ from services.gym_assistant.routers.routes import router as gym_router
 from services.web_scraper.routers.routes import router as webscraper_router
 from services.api_consumption.routers.routes import router as apiconsumption_router
 from services.auto_ml.routers.routes import router as auto_ml_router
-from services.companion.routers.companion_routes import router as companion_router
+from services.companion.routers.routes import router as companion_router
 
 app = FastAPI()
 
